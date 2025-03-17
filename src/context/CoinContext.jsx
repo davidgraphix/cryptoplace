@@ -14,19 +14,18 @@ const CoinContextProvider = (props) => {
       method: "GET",
       headers: {
         accept: "application/json",
-        "x-cg-demo-api-key": "	CG-bgJ4Z3UtSu7FJncmsWfJatLZ",
+        "x-cg-demo-api-key": "CG-bgJ4Z3UtSu7FJncmsWfJatLZ",
       },
     };
-
-    fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}`,
-      options
-    )
-      .then((res) => res.json())
-      .then((res) => setAllCoin(res))
-      .catch((err) => console.error(err));
+    try {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency.name}`,
+        options
+      );
+      const data = await response.json();
+      setAllCoin([...data]);
+    } catch (err) {}
   };
-
   useEffect(() => {
     fetchAllCoin();
   }, [currency]);
@@ -38,7 +37,9 @@ const CoinContextProvider = (props) => {
   };
 
   return (
-    <CoinContext.Provider value={{}}>{props.children}</CoinContext.Provider>
+    <CoinContext.Provider value={contextValue}>
+      {props.children}
+    </CoinContext.Provider>
   );
 };
 
