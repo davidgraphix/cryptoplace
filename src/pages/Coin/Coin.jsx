@@ -6,7 +6,7 @@ import LineChart from "../../components/LineChart/LineChart";
 
 const Coin = () => {
   const { coinId } = useParams();
-  const [coinData, setCoinData] = useState(null); // Set to null initially
+  const [coinData, setCoinData] = useState(null);
   const [historicalData, setHistoricalData] = useState(null);
   const { currency } = useContext(CoinContext);
 
@@ -19,8 +19,7 @@ const Coin = () => {
       },
     };
 
-    const url = `https://api.coingecko.com/api/v3/coins/${coinId}`; // ✅ Use the correct endpoint
-    console.log("Fetching:", url); // Debugging
+    const url = `https://api.coingecko.com/api/v3/coins/${coinId}`;
 
     fetch(url, options)
       .then((res) => res.json())
@@ -57,7 +56,7 @@ const Coin = () => {
     fetchHistoricalData();
   }, [currency]);
 
-  // **Fix: Handle loading state to prevent undefined errors**
+  // Handle loading state to prevent undefined errors
   if (!coinData || !historicalData) {
     return (
       <div className="spinner">
