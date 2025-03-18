@@ -15,9 +15,9 @@ const Home = () => {
     }
   };
 
-  const searchHandler = async (e) => {
+  const searchHandler = (e) => {
     e.preventDefault();
-    const coins = await allCoin.filter((item) => {
+    const coins = allCoin.filter((item) => {
       return item.name.toLowerCase().includes(input.toLowerCase());
     });
     setDisplayCoin(coins);
@@ -65,7 +65,7 @@ const Home = () => {
           <p style={{ textAlign: "center" }}>24H Change</p>
           <p className="market-cap">Market Cap</p>
         </div>
-        {allCoin?.slice(0, 10).map((item, index) => (
+        {displayCoin?.slice(0, 10).map((item, index) => (
           <Link to={`./coin/${item.id}`} className="table-layout" key={index}>
             <p>{item.market_cap_rank}</p>
             <div>
